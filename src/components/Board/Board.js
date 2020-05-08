@@ -58,15 +58,17 @@ const Board = () => {
   };
   
   return (
-    <div className="board">
-      {
-        squares.map((squareValue, index) => 
-          <Square
-            value={squareValue}
-            onClick={() => handleSquareClick(index)}
-          />
-        )
-      }
+    <div className="grid">
+      <div className="board">
+        {
+          squares.map((squareValue, index) => 
+            <Square
+              value={squareValue}
+              onClick={() => handleSquareClick(index)}
+            />
+          )
+        }
+      </div>
     </div>
   );
 };
