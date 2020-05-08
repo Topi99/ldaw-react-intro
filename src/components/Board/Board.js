@@ -11,7 +11,7 @@ const Board = () => {
   const [ squares, setSquares ] = useState(Array(9).fill(null));
   const [ turn, setTurn ] = useState(turns.X);
   const [ winner, setWinner ] = useState(null);
-  const [ states, setStates ] = useState([squares]);
+  const [ history, setHistory ] = useState([{squares, turn}]);
 
   useEffect(() => {
     const getWinner = () => {
@@ -51,11 +51,20 @@ const Board = () => {
     if (!winner) {
       setTurn(turn === turns.X ? turns.O : turns.X);
       setSquares(squaresCpy);
-      const newStates = [...states];
-      newStates.push(squaresCpy)
-      setStates(newStates);
+      const newHistory = history.concat({
+        squares: squaresCpy,
+        turn: turn === turns.X ? turns.O : turns.X
+      });
+      setHistory(newHistory);
     }
   };
+
+  const travelTo = (i) => {
+    const newSquares = history[i].squares;
+    const newTurn = history[i].turn;
+    setSquares(newSquares);
+    setTurn(newTurn);
+  }
   
   return (
     <div className="grid">
@@ -68,6 +77,13 @@ const Board = () => {
             />
           )
         }
+      </div>
+      <div className="timeTravel">
+        {history.map((state, i) => (
+          <div className='time' onClick={() => travelTo(i)}>
+            Return to movement #{i}
+          </div>
+        ))}
       </div>
     </div>
   );
