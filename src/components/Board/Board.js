@@ -11,6 +11,7 @@ const Board = () => {
   const [ squares, setSquares ] = useState(Array(9).fill(null));
   const [ turn, setTurn ] = useState(turns.X);
   const [ winner, setWinner ] = useState(null);
+  const [ states, setStates ] = useState([squares]);
 
   useEffect(() => {
     const getWinner = () => {
@@ -50,6 +51,9 @@ const Board = () => {
     if (!winner) {
       setTurn(turn === turns.X ? turns.O : turns.X);
       setSquares(squaresCpy);
+      const newStates = [...states];
+      newStates.push(squaresCpy)
+      setStates(newStates);
     }
   };
   
