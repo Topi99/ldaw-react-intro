@@ -10,6 +10,7 @@ const Board = () => {
 
   const [ squares, setSquares ] = useState(Array(9).fill(null));
   const [ turn, setTurn ] = useState(turns.X);
+  const [ lineN, setLineN ] = useState(0);
   const [ winner, setWinner ] = useState(null);
   const [ history, setHistory ] = useState([{squares, turn}]);
 
@@ -28,10 +29,11 @@ const Board = () => {
 
       let winner = null;
 
-      lines.forEach((line) => {
+      lines.forEach((line, i) => {
         const [a, b, c] = line;
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
           winner = squares[a];
+          setLineN(i);
         }
       });
 
@@ -40,7 +42,6 @@ const Board = () => {
 
     const winner = getWinner();
     if (winner) {
-      alert(winner);
       setWinner(winner);
     }
   }, [squares]);
@@ -77,6 +78,7 @@ const Board = () => {
             />
           )
         }
+        {winner && <div className={`winner line-${lineN}`}></div>}
       </div>
       <div className="timeTravel">
         {history.map((state, i) => (
