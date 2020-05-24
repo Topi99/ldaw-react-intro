@@ -81,9 +81,10 @@ const Board = () => {
         {winner && <div className={`winner line-${lineN}`}></div>}
       </div>
       <div className="timeTravel">
+        <h2>Historial</h2>
         {history.map((state, i) => (
           <div className='time' onClick={() => travelTo(i)}>
-            Return to movement #{i}
+            Movimiento #{i}
           </div>
         ))}
       </div>
