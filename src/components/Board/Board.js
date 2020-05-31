@@ -12,7 +12,7 @@ const Board = () => {
   const [ turn, setTurn ] = useState(turns.X);
   const [ lineN, setLineN ] = useState(0);
   const [ winner, setWinner ] = useState(null);
-  const [ history, setHistory ] = useState([{squares, turn}]);
+  const [ history, setHistory ] = useState([{squares, turn, winner}]);
 
   useEffect(() => {
     const getWinner = () => {
@@ -54,7 +54,8 @@ const Board = () => {
       setSquares(squaresCpy);
       const newHistory = history.concat({
         squares: squaresCpy,
-        turn: turn === turns.X ? turns.O : turns.X
+        turn: turn === turns.X ? turns.O : turns.X,
+        winner,
       });
       setHistory(newHistory);
     }
@@ -63,8 +64,10 @@ const Board = () => {
   const travelTo = (i) => {
     const newSquares = history[i].squares;
     const newTurn = history[i].turn;
+    const newWinner = history[i].winner;
     setSquares(newSquares);
     setTurn(newTurn);
+    setWinner(newWinner);
   }
   
   return (
